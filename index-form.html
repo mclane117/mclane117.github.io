@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Computer Component Order Form</title>
+    <style>
+        body {
+            background-color: #e9ecef;
+            /* Light gray background */
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: #ffffff;
+            /* White background for the form */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            /* Max width for the container */
+            margin-top: 50px;
+            /* Space from the top */
+        }
+
+        h1 {
+            color: #343a40;
+            /* Dark gray heading color */
+            text-align: center;
+            /* Center the heading */
+        }
+
+        .btn-primary {
+            background-color: #ff9100;
+            /* Custom primary button color */
+            border: none;
+            /* Remove border */
+        }
+
+        .btn-primary:hover {
+            background-color: #c9d3be;
+            /* Darker blue on hover */
+        }
+
+        .order-summary {
+            border: 1px solid #dee2e6;
+            /* Light gray border */
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Computer Component Order Form</h1>
+        <form id="orderForm">
+            <div class="form-group">
+                <label for="component">Select Component:</label>
+                <select class="form-control" id="component" name="component" required>
+                    <option value="" disabled selected>-- Select Component --</option>
+                    <option value="cpu">CPU</option>
+                    <option value="gpu">GPU</option>
+                    <option value="ram">RAM</option>
+                    <option value="storage">Storage</option>
+                    <option value="motherboard">Motherboard</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1" required>
+            </div>
+            <div class="form-group">
+                <label for="comments">Special Note:</label>
+                <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit Order</button>
+        </form>
+        <div id="orderResult" class="order-summary mt-3"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#orderForm").submit(function (event) {
+                event.preventDefault();
+                const formData = $("#orderForm").serializeArray();
+                const orderData = {};
+                formData.forEach(function (input) {
+                    orderData[input.name] = input.value;
+                });
+
+                // Display the order summary
+                $("#orderResult").html("<h2>Order Summary</h2>");
+                for (const key in orderData) {
+                    $("#orderResult").append(`<p><strong>${key}:</strong> ${orderData[key]}</p>`);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
